@@ -1,8 +1,26 @@
-var BrowserWindow = require('electron').BrowserWindow;
-var app = require('electron').app;
-app.on('ready', function() {
-  var mainWindow;
-  mainWindow = new BrowserWindow();
-  mainWindow.loadURL("file://"+ __dirname + "/index.html");
-  mainWindow.openDevTools({detach: true});
+let { BrowserWindow, app } = require('electron')
+console.log('barfoo')
+app.on('ready', async function() {
+  let main;
+  main = new BrowserWindow({
+    webPreferences: {
+      affinity: 'test',
+    }
+  });
+  main.loadURL("https://github.com");
+  while (true) {
+    let subWindow;
+    subWindow = new BrowserWindow({
+      webPreferences: {
+        affinity: 'test',
+      }
+    });
+    subWindow.loadURL("https://github.com");
+    subWindow.webContents.on('dom-ready', () => {
+      subWindow.close()
+    })
+    await new Promise(res => {
+      setTimeout(res, 1000)
+    })
+  }
 });
