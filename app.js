@@ -11,11 +11,12 @@ app.on('ready', async function() {
   main.webContents.on('dom-ready', () => main.webContents.executeJavaScript(`
     (async function() {
       while (true) {
-        let t = window.open("https://github.com")
+        let t = window.open()
         await new Promise(res => {
           setTimeout(res, 1000)
         })
         t.close()
+        t = null
         await new Promise(res => {
           setTimeout(res, 1000)
         })
