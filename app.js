@@ -4,23 +4,22 @@ app.on('ready', async function() {
   let main;
   main = new BrowserWindow({
     webPreferences: {
-      affinity: 'test',
+      nativeWindowOpen: true,
     }
   });
   main.loadURL("https://github.com");
-  while (true) {
-    let subWindow;
-    subWindow = new BrowserWindow({
-      webPreferences: {
-        affinity: 'test',
+  main.webContents.on('dom-ready', () => main.webContents.executeJavaScript(`
+    (async function() {
+      while (true) {
+        let t = window.open("https://github.com")
+        await new Promise(res => {
+          setTimeout(res, 1000)
+        })
+        t.close()
+        await new Promise(res => {
+          setTimeout(res, 1000)
+        })
       }
-    });
-    subWindow.loadURL("https://github.com");
-    subWindow.webContents.on('dom-ready', () => {
-      subWindow.close()
-    })
-    await new Promise(res => {
-      setTimeout(res, 1000)
-    })
-  }
+    })()
+  `))
 });
