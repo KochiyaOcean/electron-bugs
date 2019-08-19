@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <script>
-    window.open('./index1.html')
+    document.querySelector('webview').loadURL("https://github.com")
   </script>
 </head>
 <body style="height: 100vh; margin: 0;">
+  <webview style="height:100%;" src="https://github.com">
 </body>
 </html>
