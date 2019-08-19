@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <script>
-    document.querySelector('webview').loadURL("https://github.com")
+    setTimeout(() => {
+      document.querySelector('webview').loadURL("https://github.com")
+    }, 5000)
   </script>
 </head>
 <body style="height: 100vh; margin: 0;">
